@@ -1,0 +1,25 @@
+{{# each products}}
+<div class="spacing"></div>
+<div class="row">
+
+    {{#each this}}
+    <div class="col-md-4">
+        <span class="card" style="width: 15rem;">
+    <img class="card-img-top img-fluid" src={{this.imagePath}} alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">{{this.title}}</h5>
+        <p class="card-text description">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+        <div >
+            <span class="price float-left"><h5>Rs {{this.price}}</h5></span>
+            <a href="/add-to-cart/{{this._id}}" class="btn btn-success float-right">Add to Cart</a>
+        </div>
+    </div>
+        </span>
+    </div>
+
+    {{/each}}
+
+</div>
+
+{{/each}}
