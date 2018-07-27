@@ -4,15 +4,39 @@ var elements = stripe.elements();
 var $form = $('#checkout-form')
 
 $form.submit(function (event) {
+    console.log("heeee")
+    $('#charge-error').addClass('invisible');
     $form.find('button').prop('disabled',true);
-    stripe.createToken('bank_account', {
-        country: 'US',
-        currency: 'usd',
-        routing_number: '110000000',
-        account_number: '000123456789',
-        account_holder_name: 'Jenny Rosen',
-        account_holder_type: 'individual',
-    }).then(function(result) {
-        // Handle result.error or result.token
-    });
+    Stripe.card.createToken({
+        number: $('#card-number').val(),
+        cvc: $('#cvc').val(),
+        exp_month: $('#card-expiry-month').val(),
+        exp_year: $('#card-expiry-year').val(),
+        name:$('#card-holder')
+    }, stripeResponseHandler);
+    return false;
 })
+
+function stripeResponseHandler(status, response) {
+    if(response.error){
+        $('#charge-error').text(response.error.message);
+        $('#charge-error').removeClass('invisible');
+        $form.find('button').prop('disabled',false);
+
+    }
+    else {
+        var token=response.id;
+        console.log("token-"+token)
+
+        $(form).append($('<input type="hidden" name="stripeToken"/>').val(token));
+
+        $(form).get(0).submit();
+    }
+}
+
+
+// ---------------------------------
+
+
+
+//-----------------------------------

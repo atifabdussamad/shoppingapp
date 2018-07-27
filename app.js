@@ -19,7 +19,10 @@ var userRouter = require('./routes/user')
 
 var app = express();
 
-mongoose.connect('mongodb://localhost:27017/shoping')
+//mongoose.connect('mongodb://localhost:27017/shoping')
+const url ="mongodb://atifabdussamad:gate123456@ds257551.mlab.com:57551/shoping-app";
+mongoose.connect(url);
+
 
 require('./config/passport');
 
